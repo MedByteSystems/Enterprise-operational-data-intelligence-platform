@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Data
+data/raw/*
+data/staging/*
+!data/samples/
+*.csv
+*.xlsx
+
+# Logs
+*.log
+
+# Docker
+*.pid
