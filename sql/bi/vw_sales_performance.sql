@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW dwh.vw_sales_performance AS
+CREATE OR REPLACE VIEW bi.vw_sales_performance AS
 
 SELECT
     f.sales_key,

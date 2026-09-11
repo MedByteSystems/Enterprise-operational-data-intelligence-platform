@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW dwh.vw_purchase_performance AS
+CREATE OR REPLACE VIEW bi.vw_purchase_performance AS
 
 SELECT
     f.purchase_key,

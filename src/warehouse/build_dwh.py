@@ -723,6 +723,13 @@ def main() -> None:
     )
 
     with engine.begin() as conn:
+        # Remove DWH views before replacing DWH tables
+        conn.execute(text("DROP VIEW IF EXISTS dwh.vw_supply_chain_performance"))
+        conn.execute(text("DROP VIEW IF EXISTS dwh.vw_purchase_performance"))
+        conn.execute(text("DROP VIEW IF EXISTS dwh.vw_sales_performance"))
+
+        # Remove BI views before rebuilding the DWH
+
         conn.execute(text("DROP VIEW IF EXISTS bi.vw_supply_chain_performance"))
         conn.execute(text("DROP VIEW IF EXISTS bi.vw_purchase_performance"))
         conn.execute(text("DROP VIEW IF EXISTS bi.vw_sales_performance"))

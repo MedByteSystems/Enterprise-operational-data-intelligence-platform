@@ -11,6 +11,8 @@ STEPS = [
     ("RAW ingestion", PROJECT_ROOT / "src" / "ingestion" / "load_raw.py"),
     ("RAW -> STAGING", PROJECT_ROOT / "src" / "transformation" / "build_staging.py"),
     ("STAGING -> DWH", PROJECT_ROOT / "src" / "warehouse" / "build_dwh.py"),
+    ("DWH -> BI", PROJECT_ROOT / "src" / "bi" / "build_bi.py"),
+    ("Validation", PROJECT_ROOT / "src" / "validation" / "validate_pipeline.py"),
 ]
 
 

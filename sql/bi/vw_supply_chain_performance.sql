@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW dwh.vw_supply_chain_performance AS
+CREATE OR REPLACE VIEW bi.vw_supply_chain_performance AS
 
 WITH sales_agg AS (
 
