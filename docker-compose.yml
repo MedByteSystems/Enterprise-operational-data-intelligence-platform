@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: eodip-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - eodip_postgres_data:/var/lib/postgresql
+
+volumes:
+  eodip_postgres_data:
