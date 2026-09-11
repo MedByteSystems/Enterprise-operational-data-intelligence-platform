@@ -32,4 +32,6 @@ data/staging/*
 *.log
 
 # Docker
-*.pid
+*.pid.env
+.venv/
+python
