@@ -1,0 +1,4 @@
+dataset,evaluated_rows,rules_checked,failed_rules,distinct_invalid_rows,quality_score_pct,quality_status
+products,300,1,1,5,98.33,GOOD
+sales,100010,5,3,35,99.97,EXCELLENT
+purchases,20000,3,2,10,99.95,EXCELLENT

@@ -1,0 +1,13 @@
+warehouse_id,warehouse_name,city,country,capacity
+WH001,Warehouse 01,Barcelona,Morocco,10845
+WH002,Warehouse 02,Casablanca,Morocco,18646
+WH003,Warehouse 03,Marrakesh,Morocco,30460
+WH004,Warehouse 04,Barcelona,Morocco,23673
+WH005,Warehouse 05,Milan,Morocco,47864
+WH006,Warehouse 06,Marrakesh,Morocco,12903
+WH007,Warehouse 07,Agadir,Morocco,37168
+WH008,Warehouse 08,Barcelona,Morocco,25322
+WH009,Warehouse 09,Milan,Morocco,44551
+WH010,Warehouse 10,Marrakesh,Morocco,28530
+WH011,Warehouse 11,Milan,Morocco,11298
+WH012,Warehouse 12,Fes,Morocco,38597

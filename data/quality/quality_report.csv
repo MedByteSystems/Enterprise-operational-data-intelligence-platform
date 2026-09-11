@@ -1,0 +1,10 @@
+dataset,rule,status,invalid_rows,evaluated_rows,row_quality_pct
+products,category_not_null,FAIL,5,300,98.33
+sales,customer_id_not_null,FAIL,10,100010,99.99
+sales,quantity_positive,FAIL,5,100010,100.0
+sales,duplicate_rows,FAIL,20,100010,99.98
+sales,customer_reference_exists,PASS,0,100010,100.0
+sales,product_reference_exists,PASS,0,100010,100.0
+purchases,supplier_reference_exists,FAIL,5,20000,99.98
+purchases,product_reference_exists,PASS,0,20000,100.0
+purchases,received_date_valid,FAIL,5,20000,99.98
