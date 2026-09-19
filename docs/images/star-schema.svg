@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="650" viewBox="0 0 1100 650">
+  <rect width="1100" height="650" fill="#ffffff"/>
+  <text x="550" y="42" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#222">EODIP — Star Schema</text>
+  <g font-family="Arial" text-anchor="middle">
+    <rect x="410" y="185" width="280" height="180" rx="14" fill="#f2f2f2" stroke="#555" stroke-width="2"/>
+    <text x="550" y="222" font-size="23" font-weight="700" fill="#222">fact_sales</text>
+    <text x="550" y="255" font-size="16" fill="#555">date_key</text>
+    <text x="550" y="278" font-size="16" fill="#555">product_key</text>
+    <text x="550" y="301" font-size="16" fill="#555">customer_key</text>
+    <text x="550" y="324" font-size="16" fill="#555">warehouse_key</text>
+    <text x="550" y="347" font-size="16" fill="#555">sales measures</text>
+    <rect x="65" y="95" width="210" height="95" rx="12" fill="#fafafa" stroke="#777" stroke-width="2"/>
+    <text x="170" y="130" font-size="20" font-weight="700" fill="#222">dim_date</text>
+    <text x="170" y="158" font-size="15" fill="#555">Date attributes</text>
+    <rect x="65" y="385" width="210" height="95" rx="12" fill="#fafafa" stroke="#777" stroke-width="2"/>
+    <text x="170" y="420" font-size="20" font-weight="700" fill="#222">dim_product</text>
+    <text x="170" y="448" font-size="15" fill="#555">Product attributes</text>
+    <rect x="825" y="95" width="210" height="95" rx="12" fill="#fafafa" stroke="#777" stroke-width="2"/>
+    <text x="930" y="130" font-size="20" font-weight="700" fill="#222">dim_customer</text>
+    <text x="930" y="158" font-size="15" fill="#555">Customer attributes</text>
+    <rect x="825" y="385" width="210" height="95" rx="12" fill="#fafafa" stroke="#777" stroke-width="2"/>
+    <text x="930" y="420" font-size="20" font-weight="700" fill="#222">dim_warehouse</text>
+    <text x="930" y="448" font-size="15" fill="#555">Warehouse attributes</text>
+  </g>
+  <g stroke="#666" stroke-width="2.5">
+    <line x1="275" y1="142" x2="410" y2="220"/>
+    <line x1="275" y1="432" x2="410" y2="315"/>
+    <line x1="825" y1="142" x2="690" y2="220"/>
+    <line x1="825" y1="432" x2="690" y2="315"/>
+  </g>
+  <text x="550" y="555" text-anchor="middle" font-family="Arial" font-size="18" fill="#555">fact_purchases follows the same dimensional approach with dim_date,</text>
+  <text x="550" y="580" text-anchor="middle" font-family="Arial" font-size="18" fill="#555">dim_product, dim_supplier and dim_warehouse.</text>
+</svg>
