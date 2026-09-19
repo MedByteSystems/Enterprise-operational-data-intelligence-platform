@@ -1,185 +1,51 @@
 # EODIP — Enterprise Operational Data Intelligence Platform
 
-**End-to-End Data Engineering Platform for Supply Chain, Inventory, Procurement, Sales & Decision Intelligence**
+### End-to-End Data Engineering Platform for Supply Chain, Procurement, Sales & Decision Intelligence
 
-EODIP is an end-to-end Data Engineering and Business Intelligence platform designed to transform raw operational data into reliable analytical datasets and decision-ready dashboards.
+EODIP is an end-to-end **Data Engineering and Business Intelligence platform** designed to transform operational CSV data into structured, validated and analytics-ready datasets for decision-making.
 
-The platform implements a complete data pipeline covering data ingestion, cleaning, staging, dimensional modeling, data warehousing, BI views, automated data quality validation, Dockerized PostgreSQL, and Power BI reporting.
-
-> **Project type:** Data Engineering / Business Intelligence
-> **Domain:** Supply Chain, Sales, Procurement & Operational Analytics
-> **Status:** End-to-end pipeline operational
-
----
-
-## 1. Objectives
-
-EODIP aims to provide a structured analytical platform capable of:
-
-* ingesting operational data;
-* cleaning and standardizing raw datasets;
-* preparing reliable staging data;
-* building a dimensional Data Warehouse;
-* providing business-oriented BI views;
-* validating data quality automatically;
-* exposing operational KPIs through Power BI;
-* running the complete pipeline reproducibly;
-* providing a containerized PostgreSQL environment with Docker.
-
----
-
-## 2. Architecture
+The platform implements the following workflow:
 
 ```text
-                         OPERATIONAL DATA
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Docker PostgreSQL │
-                    │      localhost      │
-                    │       :5433         │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                         ┌───────────┐
-                         │    RAW    │
-                         │ Raw data  │
-                         └─────┬─────┘
-                               │
-                               ▼
-                       ┌──────────────┐
-                       │   STAGING    │
-                       │ Cleaning &   │
-                       │ Transformation
-                       └──────┬───────┘
-                              │
-                              ▼
-                     ┌─────────────────┐
-                     │       DWH       │
-                     │   Star Schema  │
-                     │ Dimensions/Facts
-                     └────────┬────────┘
-                              │
-                              ▼
-                     ┌─────────────────┐
-                     │       BI        │
-                     │ PostgreSQL Views│
-                     └────────┬────────┘
-                              │
-                              ▼
-                  ┌────────────────────────┐
-                  │ Automated Data Quality │
-                  │      Validation         │
-                  └───────────┬────────────┘
-                              │
-                              ▼
-                     ┌─────────────────┐
-                     │     Power BI    │
-                     │ Decision        │
-                     │ Dashboard       │
-                     └─────────────────┘
-```
-
-### Logical data flow
-
-```text
+CSV Sources
+    ↓
 RAW
- ↓
+    ↓
 STAGING
- ↓
+    ↓
 DATA WAREHOUSE
- ↓
+    ↓
 BI VIEWS
- ↓
-DATA QUALITY VALIDATION
- ↓
+    ↓
 POWER BI
 ```
 
----
+## Project Overview
 
-## 3. End-to-End Pipeline
+EODIP focuses on building a reliable analytical data platform covering:
 
-The complete pipeline is orchestrated through a single Python entry point:
+- Sales
+- Procurement
+- Suppliers
+- Products
+- Customers
+- Warehouses
 
-```bash
-python run_pipeline.py
-```
+The project demonstrates practical skills in **data ingestion, transformation, data quality, dimensional modeling, data warehousing, pipeline automation and Business Intelligence**.
 
-Execution flow:
+## Architecture
 
-```text
-1. RAW ingestion
-        ↓
-2. RAW → STAGING
-        ↓
-3. STAGING → DWH
-        ↓
-4. DWH → BI
-        ↓
-5. Data Quality Validation
-```
+![EODIP Architecture](docs/images/architecture.svg)
 
-Successful execution ends with:
+### Data flow
 
 ```text
-EODIP PIPELINE COMPLETED SUCCESSFULLY
+RAW → STAGING → DWH → BI → Power BI
 ```
 
----
+## Data Warehouse
 
-## 4. Data Layers
-
-### RAW
-
-The RAW layer contains the original operational datasets before analytical transformation.
-
-Current source entities:
-
-```text
-customers
-products
-suppliers
-warehouses
-sales
-purchases
-```
-
-Current RAW volumes:
-
-| Table          |    Rows |
-| -------------- | ------: |
-| raw.customers  |   2,000 |
-| raw.products   |     300 |
-| raw.suppliers  |      80 |
-| raw.warehouses |      12 |
-| raw.sales      | 100,010 |
-| raw.purchases  |  20,000 |
-
----
-
-### STAGING
-
-The STAGING layer contains cleaned and standardized operational data.
-
-Current STAGING volumes:
-
-| Table              |   Rows |
-| ------------------ | -----: |
-| staging.customers  |  2,000 |
-| staging.products   |    295 |
-| staging.suppliers  |     80 |
-| staging.warehouses |     12 |
-| staging.sales      | 98,315 |
-| staging.purchases  | 19,646 |
-
-The reduction in row counts reflects the data cleaning and validation rules applied during transformation.
-
----
-
-## 5. Data Warehouse
-
-The analytical warehouse follows a **star schema**.
+The analytical model follows a **Star Schema** with:
 
 ### Dimensions
 
@@ -198,177 +64,71 @@ fact_sales
 fact_purchases
 ```
 
-Current DWH volumes:
+![EODIP Star Schema](docs/images/star-schema.svg)
 
-| Table              |   Rows |
-| ------------------ | -----: |
-| dwh.dim_date       |    771 |
-| dwh.dim_product    |    295 |
-| dwh.dim_customer   |  2,000 |
-| dwh.dim_supplier   |     80 |
-| dwh.dim_warehouse  |     12 |
-| dwh.fact_sales     | 98,315 |
-| dwh.fact_purchases | 19,646 |
+The model separates reusable business dimensions from transactional facts to support analytical queries and reporting.
 
-### Analytical model
+## Data Engineering Pipeline
 
-```text
-                 dim_date
-                    │
-                    │
-dim_product ─── fact_sales ─── dim_customer
-                    │
-                    │
-              dim_warehouse
+The complete pipeline is orchestrated through a single Python entry point:
 
-
-                 dim_date
-                    │
-                    │
-dim_product ─ fact_purchases ─ dim_supplier
-                    │
-                    │
-              dim_warehouse
+```bash
+python run_pipeline.py
 ```
 
----
-
-## 6. BI Layer
-
-The BI layer provides business-ready analytical views in the PostgreSQL `bi` schema.
+Execution flow:
 
 ```text
-bi.vw_sales_performance
-bi.vw_purchase_performance
-bi.vw_supply_chain_performance
+1. Data ingestion
+       ↓
+2. RAW → STAGING
+       ↓
+3. STAGING → DWH
+       ↓
+4. DWH → BI
+       ↓
+5. Data Quality Validation
 ```
 
-These views combine fact and dimension data for reporting and analytical consumption.
+The orchestrator executes the ingestion, staging, warehouse, BI and validation steps in sequence.
 
-### Sales analytics
-
-The BI layer supports:
-
-* total sales;
-* sales evolution;
-* sales by category;
-* top products;
-* units sold;
-* sales count.
-
-### Procurement analytics
-
-The BI layer supports:
-
-* total purchases;
-* purchase count;
-* purchase amounts;
-* supplier performance.
-
-### Supply Chain analytics
-
-The BI layer supports:
-
-* average delivery delay;
-* late delivery rate;
-* supplier delivery performance;
-* purchase delivery status;
-* operational performance by warehouse and product.
-
----
-
-## 7. Power BI Dashboard
-
-Power BI consumes the `bi` views from the PostgreSQL Docker environment.
-
-Connection:
+A successful end-to-end run ends with:
 
 ```text
-Server: localhost:5433
-Database: postgres
-Schema: bi
+EODIP PIPELINE COMPLETED SUCCESSFULLY
 ```
 
-The dashboard is focused on **Sales & Supply Chain Performance**.
+## Data Quality
 
-### KPI cards
+EODIP includes automated validation checks covering:
 
-* Total Sales
-* Total Purchases
-* Units Sold
-* Sales Count
-* Purchase Count
-* Late Delivery Rate
-* Average Delivery Delay
+- Required table availability
+- Critical NULL values
+- Referential integrity
+- Fact-to-dimension relationships
+- BI view availability
+- Presence of analytical data
 
-### Main visuals
+Key relationships validated include:
 
-* Sales vs Purchases Evolution
-* Sales by Category
-* Top 10 Products by Sales
-* Top 10 Suppliers by Average Delivery Delay
-* Purchase Delivery Status
+```text
+Sales
+ ├── Date
+ ├── Product
+ ├── Customer
+ └── Warehouse
 
-### Interactive filters
+Purchases
+ ├── Date
+ ├── Product
+ ├── Supplier
+ └── Warehouse
+```
 
-* Date
-* Category
-
-The dashboard provides a decision-oriented view of sales, procurement and supply chain performance.
-
----
-
-## 8. Data Quality
-
-EODIP includes an automated validation layer executed after the BI layer.
-
-The validation script is:
+Run validation independently with:
 
 ```bash
 python src/validation/validate_pipeline.py
-```
-
-### Checks performed
-
-#### Table availability
-
-Ensures required RAW, STAGING and DWH tables exist and contain data.
-
-#### Referential integrity
-
-Checks fact-to-dimension relationships:
-
-```text
-Sales → Date
-Sales → Product
-Sales → Customer
-Sales → Warehouse
-
-Purchases → Date
-Purchases → Product
-Purchases → Supplier
-Purchases → Warehouse
-```
-
-#### Critical NULL checks
-
-Checks important foreign keys such as:
-
-```text
-fact_sales.date_key
-fact_sales.product_key
-fact_purchases.date_key
-fact_purchases.product_key
-```
-
-#### BI checks
-
-Ensures the three analytical BI views exist and contain data:
-
-```text
-bi.vw_sales_performance
-bi.vw_purchase_performance
-bi.vw_supply_chain_performance
 ```
 
 Successful validation ends with:
@@ -377,96 +137,83 @@ Successful validation ends with:
 EODIP VALIDATION COMPLETED SUCCESSFULLY
 ```
 
----
+## Business Intelligence
 
-## 9. Docker
-
-PostgreSQL is containerized with Docker Compose.
-
-### Start the database
-
-```bash
-docker compose up -d
-```
-
-### Check the container
-
-```bash
-docker ps
-```
-
-The PostgreSQL container is exposed on:
+The BI layer exposes business-oriented PostgreSQL views:
 
 ```text
-localhost:5433
+bi.vw_sales_performance
+bi.vw_purchase_performance
+bi.vw_supply_chain_performance
 ```
 
-while PostgreSQL inside the container listens on its standard port:
+These views provide the analytical foundation for Power BI.
+
+## Power BI Dashboard
+
+### EODIP — Sales & Supply Chain Dashboard
+
+The dashboard provides decision-oriented analysis of sales, procurement and supplier delivery performance.
+
+### Key indicators
+
+- Total Sales
+- Total Purchases
+- Units Sold
+- Sales Count
+- Purchase Count
+- Late Delivery Rate
+- Average Delivery Delay
+
+### Main analyses
+
+- Sales vs Purchases Evolution
+- Sales by Category
+- Top 10 Products by Sales
+- Top 10 Suppliers by Average Delivery Delay
+- Purchase Delivery Status
+
+### Filters
+
+- Date
+- Category
+
+The Power BI report is available in:
 
 ```text
-5432
+powerbi/EODIP_Sales_SupplyChain_Dashboard.pbix
 ```
 
-This avoids conflicts with the local PostgreSQL installation on Windows.
+## Technology Stack
 
-### Stop the database
+| Area | Technologies |
+|---|---|
+| Programming | Python |
+| Data Processing | Pandas · NumPy |
+| Database | PostgreSQL |
+| Data Engineering | ETL/ELT · Data Pipelines |
+| Data Warehouse | Star Schema |
+| Business Intelligence | Power BI · DAX |
+| Data Quality | Automated Validation |
+| Containerization | Docker · Docker Compose |
+| Database Access | Psycopg / SQLAlchemy |
+| Version Control | Git · GitHub |
 
-```bash
-docker compose down
-```
-
-### Database persistence
-
-Docker Compose uses a named volume:
-
-```text
-eodip_postgres_data
-```
-
-to persist PostgreSQL data across container restarts.
-
----
-
-## 10. Technology Stack
-
-| Layer            | Technology                 |
-| ---------------- | -------------------------- |
-| Programming      | Python                     |
-| Data Processing  | Pandas / NumPy             |
-| Database         | PostgreSQL                 |
-| SQL              | PostgreSQL SQL             |
-| Data Warehouse   | Star Schema                |
-| BI               | Power BI                   |
-| Database Access  | Psycopg / SQLAlchemy       |
-| Containerization | Docker / Docker Compose    |
-| Environment      | Python Virtual Environment |
-| Version Control  | Git / GitHub               |
-
----
-
-## 11. Project Structure
+## Project Structure
 
 ```text
 enterprise-operational-data-intelligence-platform/
 │
 ├── data/
-│
 ├── docker/
-│
 ├── docs/
 │   ├── architecture/
-│   └── business/
-│
+│   ├── business/
+│   └── images/
 ├── notebooks/
-│
 ├── powerbi/
-│
 ├── sql/
 │   └── bi/
-│       ├── vw_sales_performance.sql
-│       ├── vw_purchase_performance.sql
-│       └── vw_supply_chain_performance.sql
-│
 ├── src/
 │   ├── data_generation/
 │   ├── ingestion/
@@ -475,9 +222,7 @@ enterprise-operational-data-intelligence-platform/
 │   ├── warehouse/
 │   ├── bi/
 │   └── validation/
-│
 ├── tests/
-│
 ├── docker-compose.yml
 ├── .env.example
 ├── requirements.txt
@@ -485,9 +230,7 @@ enterprise-operational-data-intelligence-platform/
 └── README.md
 ```
 
----
-
-## 12. Configuration
+## Configuration
 
 Create a local `.env` file from `.env.example`.
 
@@ -501,11 +244,9 @@ DB_USER=postgres
 DB_PASSWORD=postgres
 ```
 
-> `.env` contains local configuration and is intentionally excluded from Git version control.
+The repository includes `.env` in `.gitignore`; local credentials should not be committed.
 
----
-
-## 13. Installation
+## Installation
 
 ### 1. Clone the repository
 
@@ -520,189 +261,77 @@ cd enterprise-operational-data-intelligence-platform
 python -m venv .venv
 ```
 
-### 3. Activate the virtual environment
-
 Git Bash:
 
 ```bash
 source .venv/Scripts/activate
 ```
 
-### 4. Install Python dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Start PostgreSQL with Docker
-
-```bash
-docker compose up -d
-```
-
-### 6. Configure environment variables
+### 4. Configure environment variables
 
 Create `.env` from `.env.example`.
 
-Use:
-
-```env
-DB_HOST=localhost
-DB_PORT=5433
-DB_NAME=postgres
-DB_USER=postgres
-DB_PASSWORD=postgres
-```
-
----
-
-## 14. Run the Complete Platform
-
-Once Docker and the Python environment are ready:
-
-```bash
-python run_pipeline.py
-```
-
-The command executes:
-
-```text
-RAW ingestion
-      ↓
-RAW → STAGING
-      ↓
-STAGING → DWH
-      ↓
-DWH → BI
-      ↓
-Data Quality Validation
-```
-
-Expected result:
-
-```text
-EODIP PIPELINE COMPLETED SUCCESSFULLY
-```
-
----
-
-## 15. Run Data Quality Validation Independently
-
-The validation layer can also be executed independently:
-
-```bash
-python src/validation/validate_pipeline.py
-```
-
-Expected result:
-
-```text
-EODIP VALIDATION COMPLETED SUCCESSFULLY
-```
-
----
-
-## 16. Business Value
-
-EODIP transforms operational data into decision-ready information for management, procurement, sales and supply chain analysis.
-
-The platform supports questions such as:
-
-### Sales
-
-* Which products generate the highest sales?
-* Which categories perform best?
-* How do sales evolve over time?
-
-### Procurement
-
-* How much is being purchased?
-* Which suppliers contribute the most purchasing volume?
-* How does purchasing evolve over time?
-
-### Supply Chain
-
-* Which suppliers have the longest delivery delays?
-* What percentage of purchases are late?
-* How does delivery performance evolve over time?
-
-### Management
-
-* What are the main sales and procurement trends?
-* Which operational indicators require attention?
-
----
-
-## 17. Current Scope and Limitation
-
-The current implementation includes sales, procurement, supplier, warehouse and product analytics.
-
-A dedicated `fact_inventory` table is **not implemented** because the current operational source data does not provide an explicit inventory or stock-movement dataset.
-
-Therefore, inventory metrics are not artificially generated.
-
-This keeps the analytical model aligned with the available business data.
-
----
-
-## 18. Reproducibility
-
-The project is designed to be reproducible through:
-
-```text
-Docker PostgreSQL
-        +
-Python virtual environment
-        +
-Environment configuration
-        +
-Single pipeline entry point
-        +
-Automated data quality validation
-```
-
-Main execution command:
+### 5. Start PostgreSQL
 
 ```bash
 docker compose up -d
-python run_pipeline.py
 ```
 
-This provides a reproducible local execution environment for the complete EODIP data pipeline.
+The container maps:
 
----
+```text
+localhost:5433 → PostgreSQL:5432
+```
 
-## 19. Future Improvements
-
-Potential production-oriented extensions include:
-
-* workflow orchestration with Airflow, Prefect or Dagster;
-* scheduled pipeline execution;
-* incremental data loading;
-* centralized monitoring and alerting;
-* CI/CD;
-* cloud deployment;
-* cloud data warehouse integration;
-* advanced predictive analytics;
-* machine learning use cases.
-
-These extensions are outside the current MVP scope.
-
----
-
-## 20. Project Outcome
-
-EODIP provides a complete end-to-end Data Engineering and Business Intelligence platform transforming raw operational data into validated analytical datasets and decision-ready dashboards.
-
-The project demonstrates practical capabilities in:
-
-**Python · SQL · PostgreSQL · Docker · ETL · Data Quality · Data Warehousing · Dimensional Modeling · BI · Power BI · Git/GitHub**
-
-The platform can be executed end-to-end through:
+### 6. Run the complete pipeline
 
 ```bash
-docker compose up -d
 python run_pipeline.py
 ```
 
-with automated validation confirming the integrity of the resulting analytical data.
+### 7. Stop the environment
+
+```bash
+docker compose down
+```
+
+## Scope & Limitation
+
+The current implementation focuses on:
+
+- Sales
+- Procurement
+- Products
+- Suppliers
+- Customers
+- Warehouses
+
+A dedicated `fact_inventory` table is **not implemented** because the available source data does not provide a dedicated inventory or stock-movement dataset.
+
+Inventory metrics are therefore not artificially generated.
+
+## Future Improvements
+
+Potential extensions include:
+
+- Workflow orchestration with Airflow, Prefect or Dagster
+- Incremental data loading
+- Pipeline scheduling
+- Monitoring and alerting
+- CI/CD
+- Cloud deployment
+- Cloud Data Warehouse integration
+- Streaming and near-real-time ingestion
+- Advanced predictive analytics
+
+These extensions are outside the current project scope.
+
+## Key Skills Demonstrated
+
+**Python · SQL · PostgreSQL · ETL · Data Pipelines · Data Quality · Data Warehouse · Star Schema · Docker · Power BI · DAX · Git/GitHub**
