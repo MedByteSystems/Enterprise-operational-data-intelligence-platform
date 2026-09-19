@@ -155,6 +155,8 @@ These views provide the analytical foundation for Power BI.
 
 The dashboard provides decision-oriented analysis of sales, procurement and supplier delivery performance.
 
+![EODIP Sales & Supply Chain Dashboard](docs/images/EODIP_Sales_SupplyChain_Dashboard.png.png)
+
 ### Key indicators
 
 - Total Sales
