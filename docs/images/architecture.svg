@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" fill="#ffffff"/>
+  <text x="600" y="42" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#222">EODIP — End-to-End Data Pipeline</text>
+  <g font-family="Arial" font-size="20" text-anchor="middle">
+    <rect x="55" y="150" width="155" height="90" rx="12" fill="#f2f2f2" stroke="#555" stroke-width="2"/>
+    <text x="132" y="190" fill="#222">CSV Sources</text>
+    <text x="132" y="218" font-size="16" fill="#555">Operational Data</text>
+    <rect x="255" y="150" width="145" height="90" rx="12" fill="#f2f2f2" stroke="#555" stroke-width="2"/>
+    <text x="327" y="203" fill="#222">RAW</text>
+    <rect x="445" y="130" width="175" height="130" rx="12" fill="#f2f2f2" stroke="#555" stroke-width="2"/>
+    <text x="532" y="180" fill="#222">STAGING</text>
+    <text x="532" y="210" font-size="16" fill="#555">Cleaning</text>
+    <text x="532" y="233" font-size="16" fill="#555">Transformation</text>
+    <rect x="665" y="115" width="175" height="160" rx="12" fill="#f2f2f2" stroke="#555" stroke-width="2"/>
+    <text x="752" y="172" fill="#222">DWH</text>
+    <text x="752" y="202" font-size="16" fill="#555">Star Schema</text>
+    <text x="752" y="226" font-size="16" fill="#555">Dimensions</text>
+    <text x="752" y="250" font-size="16" fill="#555">Facts</text>
+    <rect x="885" y="150" width="145" height="90" rx="12" fill="#f2f2f2" stroke="#555" stroke-width="2"/>
+    <text x="957" y="203" fill="#222">BI Views</text>
+    <rect x="1075" y="150" width="90" height="90" rx="12" fill="#f2f2f2" stroke="#555" stroke-width="2"/>
+    <text x="1120" y="190" fill="#222">Power</text>
+    <text x="1120" y="218" fill="#222">BI</text>
+  </g>
+  <g stroke="#555" stroke-width="3" fill="none">
+    <path d="M210 195 H255"/><path d="M400 195 H445"/><path d="M620 195 H665"/><path d="M840 195 H885"/><path d="M1030 195 H1075"/>
+  </g>
+  <rect x="610" y="310" width="280" height="75" rx="12" fill="#fafafa" stroke="#777" stroke-width="2"/>
+  <text x="750" y="342" text-anchor="middle" font-family="Arial" font-size="18" fill="#222">Automated Data Quality</text>
+  <text x="750" y="367" text-anchor="middle" font-family="Arial" font-size="15" fill="#555">validation after BI build</text>
+  <text x="600" y="465" text-anchor="middle" font-family="Arial" font-size="17" fill="#555">Dockerized PostgreSQL · Python pipeline · Reproducible local execution</text>
+</svg>
